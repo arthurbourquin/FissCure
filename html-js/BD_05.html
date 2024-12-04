@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dokdo&family=Galindo&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dokdo&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typewriter Effect</title>
+    <style>
+        :root {
+            --main-color: seagreen;
+            --overall-width: 300px;
+        }
+
+        #Title {
+            text-align: center;
+            font-family: Galindo;
+            color: var(--main-color);
+            font-size: 40px;
+            font-weight: 800;
+        }
+
+        #IllustrationImg {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 300px;
+            height: 300px;
+            object-fit: contain;
+            /* object-fit: cover / contain; */
+            background-color: wheat;
+            border-radius: 15px;
+        }
+
+        #NarrationText {
+            margin-left: calc(50% - var(--overall-width) / 2);
+            font-family: Roboto Slab;
+            font-size: 20px;
+            font-weight: 400;
+            width: 300px;
+            height: 150px;
+            color: var(--main-color);
+        }
+
+        #Navigation {
+            text-align: center;
+        }
+
+        button,
+        #CurrentFrame {
+            font-family: Roboto Slab;
+            font-size: 14px;
+            font-weight: 900;
+            color: #fff;
+            background-color: var(--main-color);
+            border: 2px solid var(--main-color);
+            border-radius: 0.5em;
+            padding: 0.5em;
+            margin: 0px 5px;
+            width: 80px;
+        }
+
+        button:hover {
+            color: var(--main-color);
+            background-color: #fff;
+        }
+
+        #CurrentFrame {
+            width: 60px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="CONTENT">
+
+        <div id="Title">Paul's Story</div>
+
+        <img id="IllustrationImg" src="http://www.arthurbourquin.ch/Fisscure/paulportrait">
+
+        <div id="NarrationText" class="AlignLeft">
+        </div>
+
+        <div id="Navigation" class="AlignCenter">
+            <button id="PreviousBtn" onclick="typeWriter(-1)">Previous</button>
+            <span id="CurrentFrame"></span>
+            <button id="NextBtn" onclick="typeWriter(1)">Next</button>
+        </div>
+
+        <span id="test"></span>
+
+    </div>
+
+    <script>
+
+        const FrameData = [
+            { "name": "Title", "text": "Let's hear about Paul's story!", "image": "paul" },
+            { "name": "ThisIsPaul", "text": "This is Paul.", "image": "paulportrait" },
+            { "name": "Sitting", "text": "Paul avoids sitting down because he has a little discomfort...", "image": "prordi" },
+            { "name": "Embarrassing", "text": "He doesn't like to talk about it, because it's embarrassing...", "image": "paul" },
+            { "name": "Intimate", "text": "Paul has pain in an intimate area...", "image": "paul" },
+            { "name": "AnalFissure", "text": "Paul, like many people, suffers from an “anal fissure”, a small wound in the anus.", "image": "paul" },
+            { "name": "NoWorry", "text": "Nothing serious, really.", "image": "paul" },
+            { "name": "Requiring", "text": "But sometimes it requires treatment.", "image": "paul" },
+            { "name": "Ointment", "text": "The simplest is a little ointment, but that's sometimes ineffective...", "image": "paul" },
+            { "name": "Surgery", "text": "The “must” is surgery! But it's a little invasive...", "image": "paul" },
+            { "name": "Inbetween", "text": "And between the two, there's a method that's more effective than ointment and less restrictive than surgery, with this little utensil - harmless, really.", "image": "paul" },
+            { "name": "Gesture", "text": "It's placed in the buttocks - by a doctor, of course - and tiny needles administer a little botox to relax the muscle, allowing the wound to heal.", "image": "paul" },
+            { "name": "WorthIt", "text": "So yes, it stings a bit, but it's worth it.", "image": "paul" },
+            { "name": "Reassured", "text": "And now that Paul knows this, he'll be sure to tell his doctor.", "image": "paul" },
+        ];
+
+        const textDisplay = document.getElementById('NarrationText');
+
+        let speed = 3;
+
+        let revealed = 0;
+        function revealText() {
+            if (revealed < FrameData[CurrentFrame].text.length + speed) {
+                textDisplay.innerHTML = FrameData[CurrentFrame].text.slice(0, revealed + 1);
+                revealed += speed;
+                setTimeout(revealText, 60);
+            } else {
+                clearTimeout();
+                revealed = 0;
+            }
+        }
+
+        let isRunning = false;
+        // Function to create the typewriter effect
+        function typeWriter(Direction) {
+
+            if (!isRunning) {
+
+                isRunning = true;
+
+                textDisplay.innerText = "";
+
+                CurrentFrame = Math.max((CurrentFrame + Direction), 0);
+                CurrentFrame = Math.min(CurrentFrame, FrameData.length - 1);
+                document.getElementById('CurrentFrame').innerText = CurrentFrame + 1 + " / " + FrameData.length;
+
+                // Update image if available
+                const imageUrl = FrameData[CurrentFrame].image;
+                if (imageUrl) {
+                    document.getElementById('IllustrationImg').src = "http://www.arthurbourquin.ch/Fisscure/" + imageUrl;
+                } else {
+                    document.getElementById('IllustrationImg').src = ""; // Clear the image if none is provided
+                }
+
+            }
+
+            revealText();
+
+            isRunning = false;
+        }
+
+        let CurrentFrame = 0;
+
+        // Start typing the first item in FrameData array as the title
+        typeWriter(0);
+
+    </script>
+
+</body>
+
+</html>

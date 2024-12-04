@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dokdo&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typewriter Effect</title>
+    <style>
+        :root {
+            --main-color: seagreen;
+            --secondary-color: darkslategray;
+            --accent-color: #f1c40f;
+        }
+
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #title {
+            font-size: 20px;
+            font-weight: 800;
+            text-align: center;
+            margin: 20px 0px;
+        }
+
+        #Illustration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #Narration {
+            font-family: Roboto Slab;
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--main-color);
+        }
+
+        #Illustration img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        img {
+            width: auto;
+        }
+
+        button,
+        #CurrentFrame {
+            font-family: Roboto Slab;
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--main-color);
+            background-color: #fff;
+            border: 2px solid var(--main-color);
+            border-radius: 0.5em;
+            padding: 0.5em;
+            margin: 50px 5px;
+            width: 100px;
+        }
+
+        button:hover {
+            color: #fff;
+            background-color: var(--main-color);
+        }
+
+        #CurrentFrame {
+            width: 25px;
+            text-align: center;
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="Illustration">
+        <img src="http://www.arthurbourquin.ch/Fisscure/paulportrait" alt="Paul's Portrait">
+    </div>
+    <div id="Narration">
+    </div>
+    <div>
+        <button id="PreviousBtn" onclick="typeWriter(-1)">Previous</button>
+        <span id="CurrentFrame"></span>
+        <button id="NextBtn" onclick="typeWriter(1)">Next</button>
+    </div>
+
+    <script>
+
+const TEXT = [
+            ["Title", "Let hear about Paul's story!"],
+            ["ThisIsPaul", "This is Paul."],
+            ["Sitting", "Paul avoids sitting down because he has a little discomfort..."],
+            ["Embarrassing", "He doesn't like to talk about it, because it's embarrassing..."],
+            ["Intimate", "Paul has pain in an intimate area..."],
+            ["AnalFissure", "Paul, like many people, suffers from an “anal fissure”, a small wound in the anus."],
+            ["NoWorry", "Nothing serious, really."],
+            ["Requiring", "But sometimes it requires treatment."],
+            ["Ointment", "The simplest is a little ointment, but that's sometimes ineffective..."],
+            ["Surgery", "The “must” is surgery! But it's a little invasive..."],
+            ["Inbetween", "And between the two, there's a method that's more effective than ointment and less restrictive than surgery, with this little utensil - harmless, really."],
+            ["Gesture", "It's placed in the buttocks - by a doctor, of course - and tiny needles administer a little botox to relax the muscle, allowing the wound to heal."],
+            ["WorthIt", "So yes, it stings a bit, but it's worth it."],
+            ["Reassured", "And now that Paul knows this, he'll be sure to tell his doctor."]
+        ];
+
+        // Function to create the typewriter effect
+        function typeWriter(Direction) {
+            CurrentFrame += Direction;
+            document.getElementById('CurrentFrame').innerText = CurrentFrame;
+            let i = 0;
+            const element = document.getElementById('Narration');
+            element.innerText = ""
+
+            function type() {
+                if (i < TEXT[0].Title.length) {
+                    element.innerHTML += TEXT[0].Name.charAt(i);
+                    i++;
+                    setTimeout(type, 40);
+                }
+            }
+
+            type();
+        }
+
+        let CurrentFrame = 0;
+
+        // Start typing the first item in TEXT array as the title
+        typeWriter(1);
+
+    </script>
+
+</body>
+
+</html>

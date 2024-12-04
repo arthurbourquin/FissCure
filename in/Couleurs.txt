@@ -1,0 +1,18 @@
+Les correspondances CMYK (impréssion) des couleurs RGB utilisées sont les suivantes:
+
+Vert clair: 
+Hex: #28DD8F
+
+RGB: 40 221 143
+
+CMYK: 64% 0 60% 0
+
+ 
+
+Vert foncé:
+
+Hex: #1A8E84
+
+RGB: 26 142 132
+
+CMYK: 80% 22% 51% 5%
